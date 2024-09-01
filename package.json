@@ -1,0 +1,36 @@
+{
+  "name": "yolov8-tfjs",
+  "description": "Object detection application right in your browser using YOLOv8 and Tensorflow.js",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [
+    "weed detection",
+    "yolov8",
+    "javascript",
+    "react",
+    "tensorflow.js"
+  ],
+  "author": "Lejun Deng",
+  "license": "MIT",
+  "homepage": "https://github.com/darwin-hub/fml",
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.1.0",
+    "normalize.css": "^8.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "predeploy": "yarn run build",
+  "deploy": "gh-pages -d build",
+  "devDependencies": {
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "gh-pages": "^6.1.1",
+    "vite": "^3.2.3"
+  }
+}
