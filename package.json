@@ -1,5 +1,5 @@
 {
-  "name": "yolov8-tfjs",
+  "name": "weed-detection",
   "description": "Object detection application right in your browser using YOLOv8 and Tensorflow.js",
   "version": "1.0.0",
   "scripts": {
@@ -17,7 +17,7 @@
   ],
   "author": "Lejun Deng",
   "license": "MIT",
-  "homepage": "https://github.com/darwin-hub/fml",
+  "homepage": "https://darwin-hub.github.io/Weed-Detection",
   "dependencies": {
     "@tensorflow/tfjs": "^4.1.0",
     "normalize.css": "^8.0.1",
