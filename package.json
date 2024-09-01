@@ -17,7 +17,7 @@
   ],
   "author": "Lejun Deng",
   "license": "MIT",
-  "homepage": "https://darwin-hub.github.io/Weed-Detection",
+  "homepage": "https://darwin-hub.github.io/Weed-Detection/",
   "dependencies": {
     "@tensorflow/tfjs": "^4.1.0",
     "normalize.css": "^8.0.1",
