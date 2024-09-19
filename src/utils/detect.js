@@ -77,13 +77,22 @@ export const detect = async (source, model, canvasRef, callback = () => {}) => {
     return [rawScores.max(1), rawScores.argMax(1)];
   }); // get max scores and classes index
 
-  const nms = await tf.image.nonMaxSuppressionAsync(boxes, scores, 500, 0.45, 0.2); // NMS to filter boxes
+  const nms = await tf.image.nonMaxSuppressionAsync(
+    boxes,
+    scores,
+    500,
+    0.45,
+    0.2
+  ); // NMS to filter boxes
 
   const boxes_data = boxes.gather(nms, 0).dataSync(); // indexing boxes by nms index
   const scores_data = scores.gather(nms, 0).dataSync(); // indexing scores by nms index
   const classes_data = classes.gather(nms, 0).dataSync(); // indexing classes by nms index
 
-  renderBoxes(canvasRef, boxes_data, scores_data, classes_data, [xRatio, yRatio]); // render boxes
+  renderBoxes(canvasRef, boxes_data, scores_data, classes_data, [
+    xRatio,
+    yRatio,
+  ]); // render boxes
   tf.dispose([res, transRes, boxes, scores, classes, nms]); // clear memory
 
   callback();
@@ -98,6 +107,9 @@ export const detect = async (source, model, canvasRef, callback = () => {}) => {
  * @param {HTMLCanvasElement} canvasRef canvas reference
  */
 export const detectVideo = (vidSource, model, canvasRef) => {
+  let lastTimestamp = null; // tracks the last timestamp
+  const fpsDisplay = document.getElementById("fps-display"); // select the FPS display element
+
   /**
    * Function to detect every frame from video
    */
@@ -105,8 +117,17 @@ export const detectVideo = (vidSource, model, canvasRef) => {
     if (vidSource.videoWidth === 0 && vidSource.srcObject === null) {
       const ctx = canvasRef.getContext("2d");
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clean canvas
+      fpsDisplay.innerText = `FPS: 0`; // reset FPS display if source is closed
       return; // handle if source is closed
     }
+
+    const currentTimestamp = performance.now(); // current frame timestamp
+    if (lastTimestamp !== null) {
+      const timeInterval = currentTimestamp - lastTimestamp; // time interval between frames in milliseconds
+      const fps = 1000 / timeInterval; // calculate FPS
+      fpsDisplay.innerText = `FPS: ${fps.toFixed(2)}`; // update FPS display
+    }
+    lastTimestamp = currentTimestamp; // update last timestamp
 
     detect(vidSource, model, canvasRef, () => {
       requestAnimationFrame(detectFrame); // get another frame
