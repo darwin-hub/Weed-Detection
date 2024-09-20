@@ -66,6 +66,7 @@ const App = () => {
           autoPlay
           muted
           ref={cameraRef}
+          playsInline
           onPlay={() =>
             detectVideo(cameraRef.current, model, canvasRef.current)
           }
@@ -73,6 +74,7 @@ const App = () => {
         <video
           autoPlay
           muted
+          playsInline
           ref={videoRef}
           onPlay={() => detectVideo(videoRef.current, model, canvasRef.current)}
         />
